@@ -6,7 +6,7 @@ use CodeIgniter\Model;
 
 class User extends Model {
     protected $table = "user";
-    protected $allowedFields = ["username", "hashedPassword", "is_admin"];
+    protected $allowedFields = ["username", "hashed_password", "is_admin"];
     protected $primaryKey = "id";
 
     public function getUsers() {

@@ -51,8 +51,7 @@ class AuthenticationPage extends BaseController {
         $user = $this->validator->getValidated();
 
         if ($model->checkPassword($user)) {
-            $sessionHandler = new UserSession();
-            $sessionHandler->setSession($model->getUserFromName($user["username"]));
+            new UserSession()->setSession($model->getUserFromName($user["username"]));
 
             return redirect()->to("/reservedPage/normal");
         } else {
@@ -97,8 +96,7 @@ class AuthenticationPage extends BaseController {
         $user = $this->validator->getValidated();
 
         if ($model->postUser($user)) {
-            $sessionHandler = new UserSession();
-            $sessionHandler->setSession($model->getUserFromName($user["username"]));
+            new UserSession()->setSession($model->getUserFromName($user["username"]));
 
             return redirect()->to("/reservedPage/normal");
         } else {
@@ -106,5 +104,11 @@ class AuthenticationPage extends BaseController {
                 . view("partials/signupForm", ["errors" => "Username might not exist or password is wrong"])
                 . view("partials/foot");
         }
+    }
+
+    public function logout() {
+        new UserSession()->removeSession();
+
+        return redirect("/");
     }
 }

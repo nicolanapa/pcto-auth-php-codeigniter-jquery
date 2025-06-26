@@ -69,28 +69,28 @@ class AuthenticationPage extends BaseController {
     public function signup() {
         $data = $this->request->getPost(["username", "password", "is_admin"]);
 
+        $data["is_admin"] = isset($data["is_admin"]) ?
+            ($data["is_admin"] === "true" || $data["is_admin"] ?
+                true : false) : false;
+
         if (!$this->validateData(
             $data,
-            $this->userRule,
             [
+                ...$this->userRule,
                 "is_admin" => [
-                    "rules" => "matches[true]",
-                    "errors" => ["matches" => "Is Admin checkbox checked value must be 'true'"]
+                    "rules" => "is_bool",
+                    "errors" => ["is_bool" => "Is Admin checkbox checked value must be 'true'"]
                 ]
             ]
         )) {
             return view("partials/head", ["title" => "Signup Page"])
-                . view("partials/signupFOrm", ["errors" => $this->validator->getErrors()])
+                . view("partials/signupForm", ["errors" => $this->validator->getErrors()])
                 . view("partials/foot");
         }
 
         $model = model(User::class);
 
         $user = $this->validator->getValidated();
-
-        if (!isset($user["is_admin"])) {
-            $user["is_admin"] = false;
-        }
 
         if ($model->postUser($user)) {
             return redirect("/reservedPage/normal");

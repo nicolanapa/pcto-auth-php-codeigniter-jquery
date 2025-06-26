@@ -1,5 +1,7 @@
 <?php
 
+namespace App\Libraries;
+
 class UserSession {
     private $session;
 
@@ -11,7 +13,7 @@ class UserSession {
         return $this->session->has("loggedInUser");
     }
 
-    public function getSession(): array {
+    public function getSession(): array|null {
         return $this->session->getTempdata("loggedInUser");
     }
 

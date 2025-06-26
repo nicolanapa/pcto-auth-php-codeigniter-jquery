@@ -7,6 +7,7 @@ class UserSession {
 
     public function __construct() {
         $this->session = session();
+        $this->session->start();
     }
 
     public function checkIfExists(): bool {

@@ -20,6 +20,7 @@ $routes->get("/login", [AuthenticationPage::class, "loginView"]);
 $routes->post("/login", [AuthenticationPage::class, "login"]);
 $routes->get("/signup", [AuthenticationPage::class, "signupView"]);
 $routes->post("/signup", [AuthenticationPage::class, "signup"]);
+$routes->post("/logout", [AuthenticationPage::class, "logout"]);
 
 $routes->get("/reservedPage/normal", [ReservedPage::class, "normalUser"]);
 $routes->get("/reservedPage/admin", [ReservedPage::class, "adminUser"]);

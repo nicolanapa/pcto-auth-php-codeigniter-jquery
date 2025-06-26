@@ -51,12 +51,24 @@ class AuthenticationPage extends BaseController {
         $user = $this->validator->getValidated();
 
         if ($model->checkPassword($user)) {
-            new UserSession()->setSession($model->getUserFromName($user["username"]));
+            $fetchedUser = $model->getUserFromName($user["username"]);
 
-            return redirect()->to("/reservedPage/normal");
+            if (!isset($fetchedUser)) {
+                return view("partials/head", ["title" => "Login Page"])
+                    . view("partials/loginForm", ["errors" => [
+                        "unknown_error" => "DB may have failed or some unknown Error has happened"
+                    ]])
+                    . view("partials/foot");
+            }
+
+            new UserSession()->setSession($fetchedUser);
+
+            return redirect()->to("/reservedPage/" . ($fetchedUser["is_admin"] ? "admin" : "normal"));
         } else {
             return view("partials/head", ["title" => "Login Page"])
-                . view("partials/loginForm", ["errors" => "Username might not exist or password is wrong"])
+                . view("partials/loginForm", ["errors" => [
+                    "username_password" => "Username might not exist or password is wrong"
+                ]])
                 . view("partials/foot");
         }
     }
@@ -96,12 +108,23 @@ class AuthenticationPage extends BaseController {
         $user = $this->validator->getValidated();
 
         if ($model->postUser($user)) {
-            new UserSession()->setSession($model->getUserFromName($user["username"]));
+            $fetchedUser = $model->getUserFromName(username: $user["username"]);
+            new UserSession()->setSession($fetchedUser);
 
-            return redirect()->to("/reservedPage/normal");
+            if (!isset($fetchedUser)) {
+                return view("partials/head", ["title" => "Signup Page"])
+                    . view("partials/signupForm", ["errors" => [
+                        "unknown_error" => "DB may have failed or some unknown Error has happened"
+                    ]])
+                    . view("partials/foot");
+            }
+
+            return redirect()->to("/reservedPage/" . ($fetchedUser["is_admin"] ? "admin" : "normal"));
         } else {
             return view("partials/head", ["title" => "Signup Page"])
-                . view("partials/signupForm", ["errors" => "Username might not exist or password is wrong"])
+                . view("partials/signupForm", ["errors" => [
+                    "username_password" => "Username might not exist or password is wrong"
+                ]])
                 . view("partials/foot");
         }
     }

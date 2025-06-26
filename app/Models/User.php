@@ -14,7 +14,11 @@ class User extends Model {
     }
 
     public function getUser($id) {
-        return $this->find($id);
+        return $this->select(["id", "username", "is_admin"])->find($id);
+    }
+
+    public function getUserFromName($username) {
+        return $this->select(["id", "username", "is_admin"])->where("username", $username)->find();
     }
 
     public function postUser($data): bool {

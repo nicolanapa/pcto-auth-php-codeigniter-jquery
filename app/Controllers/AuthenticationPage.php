@@ -5,6 +5,26 @@ namespace App\Controllers;
 use App\Models\User;
 
 class AuthenticationPage extends BaseController {
+    protected $helpers = ["form"];
+    protected $userRule = [
+        "username" => [
+            "rules" => "required|min_length[4]|max_length[128]",
+            "errors" => [
+                "required" => "An username is required",
+                "min_length" => "An username can't be less than 4 chars length",
+                "max_length" => "An username can't be more than 128 chars length"
+            ]
+        ],
+        "password" => [
+            "rules" => "required|min_length[2]|max_length[256]",
+            "errors" => [
+                "required" => "A password is required",
+                "min_length" => "A password can't be less than 2 chars length",
+                "max_length" => "A password can't be more than 256 chars length"
+            ]
+        ],
+    ];
+
     public function loginView() {
         helper("form");
 
@@ -16,13 +36,26 @@ class AuthenticationPage extends BaseController {
     public function login() {
         $data = $this->request->getPost(["username", "password"]);
 
-        // validate
+        if (!$this->validateData(
+            $data,
+            $this->userRule
+        )) {
+            return view("partials/head", ["title" => "Login Page"])
+                . view("partials/loginForm", ["errors" => $this->validator->getErrors()])
+                . view("partials/foot");
+        }
 
         $model = model(User::class);
 
-        // $user = $this->validator->getValidated();
+        $user = $this->validator->getValidated();
 
-        $model->checkPassword($data /* $user */);
+        if ($model->checkPassword($user)) {
+            return redirect("/reservedPage/normal");
+        } else {
+            return view("partials/head", ["title" => "Login Page"])
+                . view("partials/loginForm", ["errors" => "Username might not exist or password is wrong"])
+                . view("partials/foot");
+        }
     }
 
     public function signupView() {
@@ -36,16 +69,35 @@ class AuthenticationPage extends BaseController {
     public function signup() {
         $data = $this->request->getPost(["username", "password", "is_admin"]);
 
-        // validate
+        if (!$this->validateData(
+            $data,
+            $this->userRule,
+            [
+                "is_admin" => [
+                    "rules" => "matches[true]",
+                    "errors" => ["matches" => "Is Admin checkbox checked value must be 'true'"]
+                ]
+            ]
+        )) {
+            return view("partials/head", ["title" => "Signup Page"])
+                . view("partials/signupFOrm", ["errors" => $this->validator->getErrors()])
+                . view("partials/foot");
+        }
 
         $model = model(User::class);
 
-        // $user = $this->validator->getValidated();
+        $user = $this->validator->getValidated();
 
-        $model->postUser($data /* $user */);
+        if (!isset($user["is_admin"])) {
+            $user["is_admin"] = false;
+        }
 
-        echo 1;
-
-        return "";
+        if ($model->postUser($user)) {
+            return redirect("/reservedPage/normal");
+        } else {
+            return view("partials/head", ["title" => "Signup Page"])
+                . view("partials/signupForm", ["errors" => "Username might not exist or password is wrong"])
+                . view("partials/foot");
+        }
     }
 }

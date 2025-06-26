@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Libraries\UserSession;
 use App\Models\User;
 
 class AuthenticationPage extends BaseController {
@@ -50,7 +51,10 @@ class AuthenticationPage extends BaseController {
         $user = $this->validator->getValidated();
 
         if ($model->checkPassword($user)) {
-            return redirect("/reservedPage/normal");
+            $sessionHandler = new UserSession();
+            $sessionHandler->setSession($model->getUserFromName($user["username"]));
+
+            return redirect()->to("/reservedPage/normal");
         } else {
             return view("partials/head", ["title" => "Login Page"])
                 . view("partials/loginForm", ["errors" => "Username might not exist or password is wrong"])
@@ -93,7 +97,10 @@ class AuthenticationPage extends BaseController {
         $user = $this->validator->getValidated();
 
         if ($model->postUser($user)) {
-            return redirect("/reservedPage/normal");
+            $sessionHandler = new UserSession();
+            $sessionHandler->setSession($model->getUserFromName($user["username"]));
+
+            return redirect()->to("/reservedPage/normal");
         } else {
             return view("partials/head", ["title" => "Signup Page"])
                 . view("partials/signupForm", ["errors" => "Username might not exist or password is wrong"])

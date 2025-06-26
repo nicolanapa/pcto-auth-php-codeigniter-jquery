@@ -17,42 +17,35 @@ class User extends Model {
         return $this->find($id);
     }
 
-    public function postUser($data) {
+    public function postUser($data): bool {
         $hashedPassword = password_hash($data["password"], PASSWORD_ARGON2ID);
 
         if ($this->where("username", $data["username"])->first() !== null) {
             echo "User already exists!";
 
-            return;
+            return false;
         }
 
-        $this->save([
+        return $this->save([
             "username" => $data["username"],
             "hashed_password" => $hashedPassword,
             "is_admin" => $data["is_admin"]
         ]);
-
-        echo "Created and Logged In!";
-        echo "Username " . $data["username"] . " " .  $data["password"] . " " . $hashedPassword . " " . $data["is_admin"];
     }
 
-    public function checkPassword($data) {
+    public function checkPassword($data): bool {
         if ($this->where("username", $data["username"])->first() === null) {
             echo "User doesn't exist";
 
-            return;
+            return false;
         }
 
         if (password_verify(
             $data["password"],
             $this->select("hashed_password")->where("username", $data["username"])->first()["hashed_password"]
         )) {
-            echo "1";
-            
             return true;
         } else {
-            echo "0";
-
             return false;
         }
     }

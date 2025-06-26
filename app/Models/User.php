@@ -14,11 +14,11 @@ class User extends Model {
     }
 
     public function getUser($id) {
-        return $this->select(["id", "username", "is_admin"])->find($id);
+        return $this->select(["id", "username", "is_admin"])->find($id)[0];
     }
 
     public function getUserFromName($username) {
-        return $this->select(["id", "username", "is_admin"])->where("username", $username)->find();
+        return $this->select(["id", "username", "is_admin"])->where("username", $username)->first();
     }
 
     public function postUser($data): bool {

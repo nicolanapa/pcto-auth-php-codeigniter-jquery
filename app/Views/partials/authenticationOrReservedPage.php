@@ -7,7 +7,7 @@ $data["is_admin"] ??= "../";
 ?>
 
 <?php if ($userSession->checkIfExists()) { ?>
-    <p><a href="/reservedPage/<?= $data["is_admin"] === "../" ? $data["is_admin"] : ($data["is_admin"] ? "admin" : "normal") ?>">Reserved Pages (Welcome Back <?= $data["username"] ?? "user" ?>)</a></p>
+    <p><a href="/reservedPage/<?= $data["is_admin"] === "../" ? $data["is_admin"] : ($data["is_admin"] ? "admin" : "normal") ?>">Reserved Page (Current User: <?= $data["username"] ?? "user" ?>)</a></p>
 
     <form action="/logout" method="post">
         <button type="submit">Log out</button>

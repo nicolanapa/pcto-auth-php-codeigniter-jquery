@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Libraries\UserSession;
+use App\Models\User;
 
 class ReservedPage extends BaseController {
     protected $user;
@@ -20,8 +21,10 @@ class ReservedPage extends BaseController {
             return redirect()->to("/");
         }
 
+        $users = new User()->getUsers();
+
         return view("partials/head", ["title" => "Normal User Reserved Page"])
-            . " NORMAL USER PAGE"
+            . view("reservedPage", ["users" => $users, "isAdmin" => false])
             . view("partials/foot");
     }
 
@@ -42,10 +45,10 @@ class ReservedPage extends BaseController {
             return redirect()->to("/");
         }
 
-
+        $users = new User()->getUsers();
 
         return view("partials/head", ["title" => "Admin User Reserved Page"])
-            . " ADMIN USER PAGE"
+            . view("reservedPage", ["users" => $users, "isAdmin" => true])
             . view("partials/foot");
     }
 }

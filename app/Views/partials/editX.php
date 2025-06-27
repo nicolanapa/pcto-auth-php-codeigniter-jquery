@@ -1,1 +1,1 @@
-<button type="button">Edit</button>
+<button type="button" class="edit-button" data-user-id="<?= $userId ?>" data-type-of-action="<?= $typeOfAction ?>">Edit</button>

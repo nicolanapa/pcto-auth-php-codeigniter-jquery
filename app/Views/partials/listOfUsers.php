@@ -18,19 +18,19 @@
                     <td>
                         <div>
                             <?= $users[$i]["username"] ?>
-                            <?= view("partials/editX") ?>
+                            <?= view("partials/editX", ["userId" => $users[$i]["id"], "typeOfAction" => "username"]) ?>
                         </div>
                     </td>
                     <td>
                         <div>
                             <?= $users[$i]["is_admin"] ?>
-                            <?= view("partials/editX") ?>
+                            <?= view("partials/editX", ["userId" => $users[$i]["id"], "typeOfAction" => "is_admin"]) ?>
                         </div>
                     </td>
                     <td>
                         <div>
                             <?= $users[$i]["can_access"] ?>
-                            <?= view("partials/editX") ?>
+                            <?= view("partials/editX", ["userId" => $users[$i]["id"], "typeOfAction" => "can_access"]) ?>
                         </div>
                     </td>
                 </tr>

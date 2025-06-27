@@ -17,8 +17,10 @@ class ReservedPage extends BaseController {
 
         $this->user = $sessionHandler->getSession();
 
-        if (!isset($this->user)) {
-            return redirect()->to("/");
+        if (isset($this->user) && isset($this->user["is_admin"]) && isset($this->user["can_access"])) {
+            if ($this->user["can_access"] !== "1") {
+                return redirect()->to("/");
+            }
         }
 
         $users = new User()->getUsers();
@@ -37,8 +39,8 @@ class ReservedPage extends BaseController {
 
         $this->user = $sessionHandler->getSession();
 
-        if (isset($this->user) && isset($this->user["is_admin"])) {
-            if ($this->user["is_admin"] !== "1") {
+        if (isset($this->user) && isset($this->user["is_admin"]) && isset($this->user["can_access"])) {
+            if ($this->user["is_admin"] !== "1" || $this->user["can_access"] !== "1") {
                 return redirect()->to("/");
             }
         } else {

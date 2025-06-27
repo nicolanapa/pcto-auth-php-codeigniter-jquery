@@ -10,5 +10,8 @@
 <label for="is-admin">Are you an Admin? </label>
 <input type="checkbox" name="is_admin" id="is-admin" value="true">
 
+<label for="can-access">Would you want to access the Reserved Page? </label>
+<input type="checkbox" name="can_access" id="can-access" value="true">
+
 <button type="submit" class="signup-button">Signup!</button>
 <?= form_close() ?>

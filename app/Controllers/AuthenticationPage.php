@@ -63,7 +63,11 @@ class AuthenticationPage extends BaseController {
 
             new UserSession()->setSession($fetchedUser);
 
-            return redirect()->to("/reservedPage/" . ($fetchedUser["is_admin"] ? "admin" : "normal"));
+            if ($fetchedUser["can_access"]) {
+                return redirect()->to("/reservedPage/" . ($fetchedUser["is_admin"] ? "admin" : "normal"));
+            } else {
+                return redirect()->to("/");
+            }
         } else {
             return view("partials/head", ["title" => "Login Page"])
                 . view("partials/loginForm", ["errors" => [
@@ -82,10 +86,14 @@ class AuthenticationPage extends BaseController {
     }
 
     public function signup() {
-        $data = $this->request->getPost(["username", "password", "is_admin"]);
+        $data = $this->request->getPost(["username", "password", "is_admin", "can_access"]);
 
         $data["is_admin"] = isset($data["is_admin"]) ?
             ($data["is_admin"] === "true" || $data["is_admin"] ?
+                true : false) : false;
+
+        $data["can_access"] = isset($data["can_access"]) ?
+            ($data["can_access"] === "true" || $data["can_access"] ?
                 true : false) : false;
 
         if (!$this->validateData(
@@ -95,6 +103,10 @@ class AuthenticationPage extends BaseController {
                 "is_admin" => [
                     "rules" => "is_bool",
                     "errors" => ["is_bool" => "Is Admin checkbox checked value must be 'true'"]
+                ],
+                "can_access" => [
+                    "rules" => "is_bool",
+                    "errors" => ["is_bool" => "Can Access checkbox checked value must be 'true'"]
                 ]
             ]
         )) {
@@ -108,7 +120,7 @@ class AuthenticationPage extends BaseController {
         $user = $this->validator->getValidated();
 
         if ($model->postUser($user)) {
-            $fetchedUser = $model->getUserFromName(username: $user["username"]);
+            $fetchedUser = $model->getUserFromName($user["username"]);
             new UserSession()->setSession($fetchedUser);
 
             if (!isset($fetchedUser)) {
@@ -119,7 +131,11 @@ class AuthenticationPage extends BaseController {
                     . view("partials/foot");
             }
 
-            return redirect()->to("/reservedPage/" . ($fetchedUser["is_admin"] ? "admin" : "normal"));
+            if ($fetchedUser["can_access"]) {
+                return redirect()->to("/reservedPage/" . ($fetchedUser["is_admin"] ? "admin" : "normal"));
+            } else {
+                return redirect()->to("/");
+            }
         } else {
             return view("partials/head", ["title" => "Signup Page"])
                 . view("partials/signupForm", ["errors" => [

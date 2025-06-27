@@ -1,0 +1,1 @@
+<?= view("partials/listOfUsers", ["users" => $users, "canEdit" => $isAdmin]) ?>

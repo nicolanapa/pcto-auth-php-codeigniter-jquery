@@ -2,5 +2,5 @@
     <p><a href="/">Home</a></p>
     <p><a href="/about">About</a></p>
     <p><a href="/contact">Contact</a></p>
-    <?php require "authenticationOrReservedPage.php"; ?>
+    <?= view("partials/authenticationOrReservedPage") ?>
 </nav>

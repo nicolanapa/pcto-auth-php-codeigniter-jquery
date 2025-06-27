@@ -6,7 +6,7 @@ use CodeIgniter\Model;
 
 class User extends Model {
     protected $table = "user";
-    protected $allowedFields = ["username", "hashed_password", "is_admin"];
+    protected $allowedFields = ["username", "hashed_password", "is_admin", "can_access"];
     protected $primaryKey = "id";
 
     public function getUsers() {
@@ -14,11 +14,11 @@ class User extends Model {
     }
 
     public function getUser($id) {
-        return $this->select(["id", "username", "is_admin"])->find($id)[0];
+        return $this->select(["id", "username", "is_admin", "can_access"])->find($id)[0];
     }
 
     public function getUserFromName($username) {
-        return $this->select(["id", "username", "is_admin"])->where("username", $username)->first();
+        return $this->select(["id", "username", "is_admin", "can_access"])->where("username", $username)->first();
     }
 
     public function postUser($data): bool {
@@ -33,7 +33,8 @@ class User extends Model {
         return $this->save([
             "username" => $data["username"],
             "hashed_password" => $hashedPassword,
-            "is_admin" => $data["is_admin"]
+            "is_admin" => $data["is_admin"],
+            "can_access" => $data["can_access"]
         ]);
     }
 

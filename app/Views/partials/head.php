@@ -8,4 +8,5 @@
 </head>
 
 <body>
-    <?php require "navBar.php"; ?>
+    <?= view("partials/navBar") ?>
+    <main>

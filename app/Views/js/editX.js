@@ -68,9 +68,7 @@ $(".edit-button").on("click", (e) => {
 
 $(document).on("submit", "#edit-form", (e) => {
 	e.preventDefault();
-
-	console.log("Updating...");
-
+    
 	const data = $("#edit-form").serializeArray();
 
 	if (data[0].name === "username") {
@@ -97,29 +95,36 @@ $(document).on("submit", "#edit-form", (e) => {
 		return;
 	}
 
-	// console.log(data, { [data[0].name]: data[0].value });
+	const finalData = {
+		[data[0].name]: data[0].value,
+	};
 
-	console.log(
-		$.ajax({
-			url: "../../user/" + currentUserId,
-			method: "PUT",
-			data: { [data[0].name]: data[0].value },
-			dataType: "json",
-			success: (data) => {
-				alert("Success!");
-				// Implement dynamic updating
-				// location.reload();
-				console.log(data);
-			},
-		}).responseText
-	);
-
-	currentUserId = 0;
-
-	// $("#edit-form").remove();
+	$.ajax({
+		url: "../../user/" + currentUserId,
+		method: "PUT",
+		data: finalData,
+		dataType: "json",
+		success: (res) => {
+			// console.log(res);
+			changeTheTable(currentUserId, data[0].name, data[0].value);
+		},
+		complete: () => {
+			$("#edit-form").remove();
+			currentUserId = 0;
+		},
+	});
 });
 
 $(document).on("click", "#edit-form-cancel-button", (e) => {
 	$("#edit-form").remove();
 });
+
+function changeTheTable(id, type, value) {
+	value = typeof value === "string" ? value : value === true ? 1 : 0;
+
+	$(`[data-user-id="${id}"][data-type-of-action="${type}"]`)
+		.parent()
+		.find("span")
+		.text(value);
+}
 

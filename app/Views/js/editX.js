@@ -6,7 +6,8 @@ $(() => {
 	// ?
 });
 
-$(".edit-button").on("click", () => {
-	console.log("Edit");
+// e.currentTarget === { currentTarget }
+$(".edit-button").on("click", (e) => {
+	console.log("Edit", $(e.currentTarget).data());
 });
 

@@ -38,3 +38,7 @@
         </tbody>
     </table>
 </div>
+
+<script type="module">
+    <?= view("js/editX.js") ?>
+</script>

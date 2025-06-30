@@ -10,7 +10,7 @@ class User extends Model {
     protected $primaryKey = "id";
 
     public function getUsers() {
-        return $this->findAll();
+        return $this->select(["id", "username", "is_admin", "can_access"])->findAll();
     }
 
     public function getUser($id) {

@@ -14,7 +14,7 @@ class User extends Model {
     }
 
     public function getUser($id) {
-        return $this->select(["id", "username", "is_admin", "can_access"])->find($id)[0];
+        return $this->select(["id", "username", "is_admin", "can_access"])->find($id);
     }
 
     public function getUserFromName($username) {

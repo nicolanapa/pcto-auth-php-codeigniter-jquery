@@ -37,19 +37,35 @@ class User extends BaseController {
         if (isset($data["username"])) {
             $this->validateUserData($data, "username", "username");
         } else if (isset($data["is_admin"])) {
+            $data["is_admin"] = $data["is_admin"] === "true" ? true : false;
+
             $this->validateUserData($data, "boolean", "is_admin");
         } else if (isset($data["can_access"])) {
+            $data["can_access"] = $data["can_access"] === "true" ? true : false;
+
             $this->validateUserData($data, "boolean", "can_access");
         } else {
             $this->response->setStatusCode(400);
         }
 
         $user = $this->validator->getValidated();
-        $user["id"] = $userId;
+
+        $model = new UserModel();
+        $userFetched = $model->getUser($userId);
+
+        if (!isset($userFetched)) {
+            $this->response->setStatusCode(404);
+
+            return $this->response->setJSON(body: [
+                "status" => $this->response->getStatusCode(),
+                "errors" => "User doesn't exist"
+            ]);
+        }
+
+        $model->update($userId, $user);
 
         return $this->response->setJSON(body: [
             "status" => $this->response->getStatusCode(),
-            "data" => $user,
             "errors" => $this->validator->getErrors()
         ]);
     }

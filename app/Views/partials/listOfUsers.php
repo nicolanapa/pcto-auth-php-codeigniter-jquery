@@ -17,19 +17,25 @@
                     </td>
                     <td>
                         <div>
-                            <?= $users[$i]["username"] ?>
+                            <span>
+                                <?= $users[$i]["username"] ?>
+                            </span>
                             <?= view("partials/editX", ["userId" => $users[$i]["id"], "typeOfAction" => "username"]) ?>
                         </div>
                     </td>
                     <td>
                         <div>
-                            <?= $users[$i]["is_admin"] ?>
+                            <span>
+                                <?= $users[$i]["is_admin"] ?>
+                            </span>
                             <?= view("partials/editX", ["userId" => $users[$i]["id"], "typeOfAction" => "is_admin"]) ?>
                         </div>
                     </td>
                     <td>
                         <div>
-                            <?= $users[$i]["can_access"] ?>
+                            <span>
+                                <?= $users[$i]["can_access"] ?>
+                            </span>
                             <?= view("partials/editX", ["userId" => $users[$i]["id"], "typeOfAction" => "can_access"]) ?>
                         </div>
                     </td>

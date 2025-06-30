@@ -43,8 +43,6 @@ $(() => {
 $(".edit-button").on("click", (e) => {
 	const data = $(e.currentTarget).data();
 
-	console.log("Edit", data);
-
 	// Check if there's already an existing Form
 	if ($(".edit-form-container").find("#edit-form").length === 1) {
 		$("#edit-form").remove();
@@ -53,8 +51,6 @@ $(".edit-button").on("click", (e) => {
 	const container = $(".edit-form-container");
 
 	// Render and display the Form
-	// (Another Function) Then handle the submitting of the Form
-	// And send requests to the REST routes
 	currentUserId = data.userId;
 
 	if (data.typeOfAction === "username") {
@@ -68,7 +64,7 @@ $(".edit-button").on("click", (e) => {
 
 $(document).on("submit", "#edit-form", (e) => {
 	e.preventDefault();
-    
+
 	const data = $("#edit-form").serializeArray();
 
 	if (data[0].name === "username") {

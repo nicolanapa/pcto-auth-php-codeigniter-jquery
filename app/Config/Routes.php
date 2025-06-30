@@ -27,7 +27,7 @@ $routes->get("/reservedPage/admin", [ReservedPage::class, "adminUser"]);
 
 // REST API Routes
 $routes->get("/user", [User::class, "getAll"]);
-$routes->post("/user", [User::class, "newUser"]);
-$routes->get("/user/(:segment)", [User::class, "get"]);
-$routes->put("/user(:segment)", [User::class, "put"]);
-$routes->delete("/user(:segment)", [User::class, "delete"]);
+$routes->post("/user", [User::class, "post"]);
+$routes->get("/user/(:num)", [User::class, "get"]);
+$routes->put("/user(:num)", [User::class, "put"]);
+$routes->delete("/user(:num)", [User::class, "delete"]);

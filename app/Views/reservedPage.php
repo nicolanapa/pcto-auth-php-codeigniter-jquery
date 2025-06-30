@@ -1,3 +1,3 @@
-<div class="edit-form"></div>
+<div class="edit-form-container"></div>
 
 <?= view("partials/listOfUsers", ["users" => $users, "canEdit" => $isAdmin]) ?>

@@ -29,5 +29,5 @@ $routes->get("/reservedPage/admin", [ReservedPage::class, "adminUser"]);
 $routes->get("/user", [User::class, "getAll"]);
 $routes->post("/user", [User::class, "post"]);
 $routes->get("/user/(:num)", [User::class, "get"]);
-$routes->put("/user(:num)", [User::class, "put"]);
-$routes->delete("/user(:num)", [User::class, "delete"]);
+$routes->put("/user/(:num)", [User::class, "put"]);
+$routes->delete("/user/(:num)", [User::class, "delete"]);

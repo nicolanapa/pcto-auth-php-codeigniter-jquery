@@ -33,19 +33,35 @@ class User extends BaseController {
 
     public function put($userId) {
         $data = $this->request->getRawInputVar(["username", "is_admin", "can_access"]);
+        $i = 0;
 
         if (isset($data["username"])) {
             $this->validateUserData($data, "username", "username");
-        } else if (isset($data["is_admin"])) {
+
+            $i++;
+        }
+
+        if (isset($data["is_admin"])) {
             $data["is_admin"] = $data["is_admin"] === "true" ? true : false;
-
             $this->validateUserData($data, "boolean", "is_admin");
-        } else if (isset($data["can_access"])) {
-            $data["can_access"] = $data["can_access"] === "true" ? true : false;
 
+            $i++;
+        }
+
+        if (isset($data["can_access"])) {
+            $data["can_access"] = $data["can_access"] === "true" ? true : false;
             $this->validateUserData($data, "boolean", "can_access");
-        } else {
+
+            $i++;
+        }
+
+        if ($i === 0) {
             $this->response->setStatusCode(400);
+
+            return $this->response->setJSON(body: [
+                "status" => $this->response->getStatusCode(),
+                "errors" => "Wrong input fields"
+            ]);
         }
 
         $user = $this->validator->getValidated();

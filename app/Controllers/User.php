@@ -2,22 +2,12 @@
 
 namespace App\Controllers;
 
+use App\Libraries\UserSession;
 use App\Models\User as UserModel;
 
 class User extends BaseController {
     protected $format = "json";
     private $model;
-
-    public function getAll() {
-        return $this->response->setJSON(new UserModel()->getUsers());
-    }
-
-    public function post() {
-    }
-
-    public function get($userId) {
-        return $this->response->setJSON(new UserModel()->getUser($userId));
-    }
 
     private function validateUserData($data, $type, $name) {
         if ($this->validateData($data, $type === "username"
@@ -31,7 +21,56 @@ class User extends BaseController {
         }
     }
 
+    private function error403() {
+        $this->response->setStatusCode(403);
+
+        return $this->response->setJSON(body: [
+            "status" => $this->response->getStatusCode(),
+            "errors" => "The User doesn't have enough permissions"
+        ]);
+    }
+
+    private function checkPermissions() {
+        $sessionHandler = new UserSession();
+
+        if (!$sessionHandler->checkIfExists()) {
+            return $this->error403();
+        }
+
+        $user = $sessionHandler->getSession();
+
+        if (isset($user) && isset($user["is_admin"]) && isset($user["can_access"])) {
+            if ($user["is_admin"] !== "1" || $user["can_access"] !== "1") {
+                return $this->error403();
+            } else {
+                return true;
+            }
+        } else {
+            return $this->error403();
+        }
+    }
+
+    public function getAll() {
+        return $this->response->setJSON(new UserModel()->getUsers());
+    }
+
+    public function post() {
+        $permissions = $this->checkPermissions();
+        if ($permissions !== true) {
+            return $permissions;
+        }
+    }
+
+    public function get($userId) {
+        return $this->response->setJSON(new UserModel()->getUser($userId));
+    }
+
     public function put($userId) {
+        $permissions = $this->checkPermissions();
+        if ($permissions !== true) {
+            return $permissions;
+        }
+
         $data = $this->request->getRawInputVar(["username", "is_admin", "can_access"]);
         $i = 0;
 
@@ -87,5 +126,9 @@ class User extends BaseController {
     }
 
     public function delete($userId) {
+        $permissions = $this->checkPermissions();
+        if ($permissions !== true) {
+            return $permissions;
+        }
     }
 }

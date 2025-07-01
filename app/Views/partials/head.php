@@ -2,7 +2,8 @@
 $stylesheets ??= [];
 $scripts ??= [];
 
-array_push($stylesheets, "styles.css");
+array_unshift($stylesheets, "navBar.css");
+array_unshift($stylesheets, "styles.css");
 ?>
 
 <!DOCTYPE html>

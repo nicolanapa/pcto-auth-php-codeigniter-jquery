@@ -1,5 +1,5 @@
 <div>
-    <table>
+    <table class="user-table">
         <thead>
             <tr>
                 <th>ID</th>

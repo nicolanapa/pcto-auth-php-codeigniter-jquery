@@ -44,5 +44,3 @@
         </tbody>
     </table>
 </div>
-
-<script type="module" src="<?= base_url("./scripts/editX.js") ?>"></script>

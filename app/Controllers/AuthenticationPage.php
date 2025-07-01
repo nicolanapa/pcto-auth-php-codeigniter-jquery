@@ -31,7 +31,7 @@ class AuthenticationPage extends BaseController {
 
         return view("partials/head", [
             "title" => "Login Page",
-            "stylesheets" => "authenticationPage.css"
+            "stylesheets" => ["authenticationPage.css"]
         ])
             . view("partials/loginForm")
             . view("partials/foot");
@@ -46,7 +46,7 @@ class AuthenticationPage extends BaseController {
         )) {
             return view("partials/head", [
                 "title" => "Login Page",
-                "stylesheets" => "authenticationPage.css"
+                "stylesheets" => ["authenticationPage.css"]
             ])
                 . view("partials/loginForm", ["errors" => $this->validator->getErrors()])
                 . view("partials/foot");
@@ -62,7 +62,7 @@ class AuthenticationPage extends BaseController {
             if (!isset($fetchedUser)) {
                 return view("partials/head", [
                     "title" => "Login Page",
-                    "stylesheets" => "authenticationPage.css"
+                    "stylesheets" => ["authenticationPage.css"]
                 ])
                     . view("partials/loginForm", ["errors" => [
                         "unknown_error" => "DB may have failed or some unknown Error has happened"
@@ -80,7 +80,7 @@ class AuthenticationPage extends BaseController {
         } else {
             return view("partials/head", [
                 "title" => "Login Page",
-                "stylesheets" => "authenticationPage.css"
+                "stylesheets" => ["authenticationPage.css"]
             ])
                 . view("partials/loginForm", ["errors" => [
                     "username_password" => "Username might not exist or password is wrong"
@@ -94,7 +94,7 @@ class AuthenticationPage extends BaseController {
 
         return view("partials/head", [
             "title" => "Signup Page",
-            "stylesheets" => "authenticationPage.css"
+            "stylesheets" => ["authenticationPage.css"]
         ])
             . view("partials/signupForm")
             . view("partials/foot");
@@ -127,7 +127,7 @@ class AuthenticationPage extends BaseController {
         )) {
             return view("partials/head", [
                 "title" => "Signup Page",
-                "stylesheets" => "authenticationPage.css"
+                "stylesheets" => ["authenticationPage.css"]
             ])
                 . view("partials/signupForm", ["errors" => $this->validator->getErrors()])
                 . view("partials/foot");
@@ -144,7 +144,7 @@ class AuthenticationPage extends BaseController {
             if (!isset($fetchedUser)) {
                 return view("partials/head", [
                     "title" => "Signup Page",
-                    "stylesheets" => "authenticationPage.css"
+                    "stylesheets" => ["authenticationPage.css"]
                 ])
                     . view("partials/signupForm", ["errors" => [
                         "unknown_error" => "DB may have failed or some unknown Error has happened"
@@ -160,7 +160,7 @@ class AuthenticationPage extends BaseController {
         } else {
             return view("partials/head", [
                 "title" => "Signup Page",
-                "stylesheets" => "authenticationPage.css"
+                "stylesheets" => ["authenticationPage.css"]
             ])
                 . view("partials/signupForm", ["errors" => [
                     "username_password" => "Username might not exist or password is wrong"

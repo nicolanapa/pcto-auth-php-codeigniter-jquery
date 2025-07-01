@@ -12,25 +12,31 @@ const forms = [
       maxlength="128"
     />
 
-    <button type="submit" id="edit-form-update-button">Update</button>
-    <button type="button" id="edit-form-cancel-button">Cancel</button>
-    </form>`,
+	<div>
+		<button type="submit" id="edit-form-update-button">Update</button>
+		<button type="button" id="edit-form-cancel-button">Cancel</button>
+    </div>
+	</form>`,
 	`<form action="/user" method="post" id="edit-form">
     <label for="is-admin">Is Admin: </label>
     <input id="is_admin" type="hidden" value="false" name="is_admin_hidden">
     <input type="checkbox" id="is-admin" name="is_admin" value="true" />
     
-    <button type="submit" id="edit-form-update-button">Update</button>
-    <button type="button" id="edit-form-cancel-button">Cancel</button>
-    </form>`,
+	<div>
+		<button type="submit" id="edit-form-update-button">Update</button>
+		<button type="button" id="edit-form-cancel-button">Cancel</button>
+    </div>
+	</form>`,
 	`<form action="/user" method="post" id="edit-form">
     <label for="can-access">Can Access: </label>
     <input id="can_access" type="hidden" value="false" name="can_access_hidden">
     <input type="checkbox" id="can-access" name="can_access" value="true" />
     
-    <button type="submit" id="edit-form-update-button">Update</button>
-    <button type="button" id="edit-form-cancel-button">Cancel</button>
-    </form>`,
+	<div>
+		<button type="submit" id="edit-form-update-button">Update</button>
+		<button type="button" id="edit-form-cancel-button">Cancel</button>
+    </div>
+	</form>`,
 ];
 
 let currentUserId = 0;

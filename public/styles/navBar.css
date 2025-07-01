@@ -1,0 +1,39 @@
+nav {
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	background-color: rgb(255, 237, 220);
+	border-radius: 10px;
+	padding: 15px;
+	margin: 10px;
+}
+
+nav > *,
+nav form button {
+	font-weight: 700;
+}
+
+.authentication-reserved {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+
+.authentication-reserved p a {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-content: center;
+	column-gap: 5px;
+}
+
+.logout-button {
+	background-color: rgb(255, 248, 248);
+	border-style: solid;
+	border: 1.5px solid rgb(138, 43, 226);
+	border-radius: 15px;
+	padding: 6px 15px;
+	margin: 9.5px 2.5px 0;
+}
+

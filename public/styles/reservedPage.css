@@ -1,0 +1,25 @@
+.user-table {
+	width: 100%;
+}
+
+.user-table thead tr > th {
+	font-weight: 550;
+}
+
+.user-table tbody > tr > td {
+	border-top: 1.75px solid rgb(150, 150, 150);
+	border-right: 1.75px solid rgb(150, 150, 150);
+	border-top-right-radius: 1.5px;
+	padding: 2.5px 10px;
+}
+
+.user-table tbody > tr > td div {
+	display: flex;
+	justify-content: space-evenly;
+}
+
+.edit-button {
+	padding: 1.5px 6px;
+	margin: 1px;
+}
+

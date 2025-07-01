@@ -45,6 +45,4 @@
     </table>
 </div>
 
-<script type="module">
-    <?= view("js/editX.js") ?>
-</script>
+<script type="module" src="<?= base_url("./js/editX.js") ?>"></script>

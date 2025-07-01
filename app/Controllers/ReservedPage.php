@@ -6,6 +6,7 @@ use App\Libraries\UserSession;
 use App\Models\User;
 
 class ReservedPage extends BaseController {
+    protected $helpers = ["url"];
     protected $user;
 
     public function normalUser() {

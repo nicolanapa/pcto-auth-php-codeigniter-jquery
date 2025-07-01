@@ -1,4 +1,4 @@
-<div>
+<div class="user-table-container">
     <table class="user-table">
         <thead>
             <tr>

@@ -1,3 +1,7 @@
+.user-table-container {
+	overflow-x: auto;
+}
+
 .user-table {
 	width: 100%;
 }
@@ -18,8 +22,30 @@
 	justify-content: space-evenly;
 }
 
-.edit-button {
-	padding: 1.5px 6px;
+.edit-button,
+#edit-form > button {
+	background-color: rgb(240, 240, 240);
+	border-style: none;
+	border-radius: 5px;
+	font-weight: 350;
+	padding: 3.5px 8px;
 	margin: 1px;
+}
+
+.edit-form-container {
+	padding: 10px;
+	margin: 10px 5px;
+}
+
+#edit-form {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	row-gap: 4.5px;
+}
+
+#edit-form input {
+	padding: 6px 10px;
+	margin: 6.5px 0 4px 15px;
 }
 

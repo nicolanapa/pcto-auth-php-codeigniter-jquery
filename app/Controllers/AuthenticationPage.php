@@ -29,7 +29,10 @@ class AuthenticationPage extends BaseController {
     public function loginView() {
         helper("form");
 
-        return view("partials/head", ["title" => "Login Page"])
+        return view("partials/head", [
+            "title" => "Login Page",
+            "stylesheets" => "authenticationPage.css"
+        ])
             . view("partials/loginForm")
             . view("partials/foot");
     }
@@ -41,7 +44,10 @@ class AuthenticationPage extends BaseController {
             $data,
             $this->userRule
         )) {
-            return view("partials/head", ["title" => "Login Page"])
+            return view("partials/head", [
+                "title" => "Login Page",
+                "stylesheets" => "authenticationPage.css"
+            ])
                 . view("partials/loginForm", ["errors" => $this->validator->getErrors()])
                 . view("partials/foot");
         }
@@ -54,7 +60,10 @@ class AuthenticationPage extends BaseController {
             $fetchedUser = $model->getUserFromName($user["username"]);
 
             if (!isset($fetchedUser)) {
-                return view("partials/head", ["title" => "Login Page"])
+                return view("partials/head", [
+                    "title" => "Login Page",
+                    "stylesheets" => "authenticationPage.css"
+                ])
                     . view("partials/loginForm", ["errors" => [
                         "unknown_error" => "DB may have failed or some unknown Error has happened"
                     ]])
@@ -69,7 +78,10 @@ class AuthenticationPage extends BaseController {
                 return redirect()->to("/");
             }
         } else {
-            return view("partials/head", ["title" => "Login Page"])
+            return view("partials/head", [
+                "title" => "Login Page",
+                "stylesheets" => "authenticationPage.css"
+            ])
                 . view("partials/loginForm", ["errors" => [
                     "username_password" => "Username might not exist or password is wrong"
                 ]])
@@ -80,7 +92,10 @@ class AuthenticationPage extends BaseController {
     public function signupView() {
         helper("form");
 
-        return view("partials/head", ["title" => "Signup Page"])
+        return view("partials/head", [
+            "title" => "Signup Page",
+            "stylesheets" => "authenticationPage.css"
+        ])
             . view("partials/signupForm")
             . view("partials/foot");
     }
@@ -110,7 +125,10 @@ class AuthenticationPage extends BaseController {
                 ]
             ]
         )) {
-            return view("partials/head", ["title" => "Signup Page"])
+            return view("partials/head", [
+                "title" => "Signup Page",
+                "stylesheets" => "authenticationPage.css"
+            ])
                 . view("partials/signupForm", ["errors" => $this->validator->getErrors()])
                 . view("partials/foot");
         }
@@ -124,7 +142,10 @@ class AuthenticationPage extends BaseController {
             new UserSession()->setSession($fetchedUser);
 
             if (!isset($fetchedUser)) {
-                return view("partials/head", ["title" => "Signup Page"])
+                return view("partials/head", [
+                    "title" => "Signup Page",
+                    "stylesheets" => "authenticationPage.css"
+                ])
                     . view("partials/signupForm", ["errors" => [
                         "unknown_error" => "DB may have failed or some unknown Error has happened"
                     ]])
@@ -137,7 +158,10 @@ class AuthenticationPage extends BaseController {
                 return redirect()->to("/");
             }
         } else {
-            return view("partials/head", ["title" => "Signup Page"])
+            return view("partials/head", [
+                "title" => "Signup Page",
+                "stylesheets" => "authenticationPage.css"
+            ])
                 . view("partials/signupForm", ["errors" => [
                     "username_password" => "Username might not exist or password is wrong"
                 ]])

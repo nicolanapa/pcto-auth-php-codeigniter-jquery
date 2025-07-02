@@ -15,11 +15,11 @@ array_unshift($stylesheets, "styles.css");
     <title><?= $title ?></title>
 
     <?php for ($i = 0; $i < count($stylesheets); $i++) { ?>
-        <link rel="stylesheet" href="<?= base_url("./styles/" . $stylesheets[$i]) ?>" />
+        <link rel="stylesheet" href="<?= str_contains($stylesheets[$i], "http") ? $stylesheets[$i] : base_url("./styles/" . $stylesheets[$i]) ?>" />
     <?php } ?>
 
     <?php for ($i = 0; $i < count($scripts); $i++) { ?>
-        <script type="module" src="<?= base_url("./scripts/" . $scripts[$i]) ?>" defer>
+        <script type="module" src="<?= str_contains($scripts[$i], "http") ? $scripts[$i] : base_url("./scripts/" . $scripts[$i]) ?>" defer>
         </script>
     <?php } ?>
 </head>

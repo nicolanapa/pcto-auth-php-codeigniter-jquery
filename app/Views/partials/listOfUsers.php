@@ -18,7 +18,10 @@
                             <span>
                                 <img src="<?= base_url("./userImages/" . ($users[$i]["image_path"] ?? "./user.svg")) ?>" alt="User Image" width="32px" height="auto">
                             </span>
-                            <?= view("partials/editX", ["userId" => $users[$i]["id"], "typeOfAction" => "image"]) ?>
+
+                            <?php if ($isAdmin) { ?>
+                                <?= view("partials/editX", ["userId" => $users[$i]["id"], "typeOfAction" => "image"]) ?>
+                            <?php } ?>
                         </div>
                     </td>
                     <td>
@@ -29,7 +32,10 @@
                             <span>
                                 <?= $users[$i]["username"] ?>
                             </span>
-                            <?= view("partials/editX", ["userId" => $users[$i]["id"], "typeOfAction" => "username"]) ?>
+
+                            <?php if ($isAdmin) { ?>
+                                <?= view("partials/editX", ["userId" => $users[$i]["id"], "typeOfAction" => "username"]) ?>
+                            <?php } ?>
                         </div>
                     </td>
                     <td>
@@ -37,7 +43,10 @@
                             <span>
                                 <?= $users[$i]["is_admin"] ?>
                             </span>
-                            <?= view("partials/editX", ["userId" => $users[$i]["id"], "typeOfAction" => "is_admin"]) ?>
+
+                            <?php if ($isAdmin) { ?>
+                                <?= view("partials/editX", ["userId" => $users[$i]["id"], "typeOfAction" => "is_admin"]) ?>
+                            <?php } ?>
                         </div>
                     </td>
                     <td>
@@ -45,7 +54,10 @@
                             <span>
                                 <?= $users[$i]["can_access"] ?>
                             </span>
-                            <?= view("partials/editX", ["userId" => $users[$i]["id"], "typeOfAction" => "can_access"]) ?>
+
+                            <?php if ($isAdmin) { ?>
+                                <?= view("partials/editX", ["userId" => $users[$i]["id"], "typeOfAction" => "can_access"]) ?>
+                            <?php } ?>
                         </div>
                     </td>
                 </tr>

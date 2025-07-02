@@ -16,6 +16,8 @@
     <input type="checkbox" name="can_access" id="can-access" value="true">
 
     <?php /* image form */ ?>
+    <label for="image">Image</label>
+    <input type="file" name="image" id="image" accept="image/*" />
 
     <button type="submit" class="signup-button">Signup!</button>
     <?= form_close() ?>

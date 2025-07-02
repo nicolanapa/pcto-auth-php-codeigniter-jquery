@@ -15,6 +15,8 @@
     <label for="can-access">Would you want to access the Reserved Page? </label>
     <input type="checkbox" name="can_access" id="can-access" value="true">
 
+    <?php /* image form */ ?>
+
     <button type="submit" class="signup-button">Signup!</button>
     <?= form_close() ?>
 </div>

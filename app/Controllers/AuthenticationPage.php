@@ -122,6 +122,10 @@ class AuthenticationPage extends BaseController {
                 "can_access" => [
                     "rules" => "is_bool",
                     "errors" => ["is_bool" => "Can Access checkbox checked value must be 'true'"]
+                ],
+                "image" => [
+                    "rules" => "",
+                    "errors" => ["" => ""]
                 ]
             ]
         )) {
@@ -136,6 +140,9 @@ class AuthenticationPage extends BaseController {
         $model = model(User::class);
 
         $user = $this->validator->getValidated();
+
+        // Add Image to DB and get id of it
+        // Add it to $user as "image_id"
 
         if ($model->postUser($user)) {
             $fetchedUser = $model->getUserFromName($user["username"]);

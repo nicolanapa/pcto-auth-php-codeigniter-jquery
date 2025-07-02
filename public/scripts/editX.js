@@ -42,7 +42,7 @@ const forms = [
 let currentUserId = 0;
 
 $(() => {
-	// ?
+	$(".user-table").DataTable();
 });
 
 // e.currentTarget === { currentTarget }

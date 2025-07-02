@@ -28,8 +28,8 @@ class ReservedPage extends BaseController {
 
         return view("partials/head", [
             "title" => "Normal User Reserved Page",
-            "scripts" => ["editX.js"],
-            "stylesheets" => ["reservedPage.css"]
+            "scripts" => ["editX.js", "../DataTables/datatables.js"],
+            "stylesheets" => ["reservedPage.css", "../DataTables/datatables.css"]
         ])
             . view("reservedPage", ["users" => $users, "isAdmin" => false])
             . view("partials/foot");
@@ -56,8 +56,8 @@ class ReservedPage extends BaseController {
 
         return view("partials/head", [
             "title" => "Admin User Reserved Page",
-            "scripts" => ["editX.js"],
-            "stylesheets" => ["reservedPage.css"]
+            "scripts" => ["editX.js", "../DataTables/datatables.js"],
+            "stylesheets" => ["reservedPage.css", "../DataTables/datatables.css"]
         ])
             . view("reservedPage", ["users" => $users, "isAdmin" => true])
             . view("partials/foot");

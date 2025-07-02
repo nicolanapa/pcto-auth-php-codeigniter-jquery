@@ -6,19 +6,19 @@ use CodeIgniter\Model;
 
 class User extends Model {
     protected $table = "user";
-    protected $allowedFields = ["username", "hashed_password", "is_admin", "can_access"];
+    protected $allowedFields = ["username", "hashed_password", "is_admin", "can_access", "image_id"];
     protected $primaryKey = "id";
 
     public function getUsers() {
-        return $this->select(["id", "username", "is_admin", "can_access"])->findAll();
+        return $this->select(["id", "username", "is_admin", "can_access", "image_id"])->findAll();
     }
 
     public function getUser($id) {
-        return $this->select(["id", "username", "is_admin", "can_access"])->find($id);
+        return $this->select(["id", "username", "is_admin", "can_access", "image_id"])->find($id);
     }
 
     public function getUserFromName($username) {
-        return $this->select(["id", "username", "is_admin", "can_access"])->where("username", $username)->first();
+        return $this->select(["id", "username", "is_admin", "can_access", "image_id"])->where("username", $username)->first();
     }
 
     public function postUser($data): bool {
@@ -30,11 +30,14 @@ class User extends Model {
             return false;
         }
 
+        // Add image handling
+
         return $this->save([
             "username" => $data["username"],
             "hashed_password" => $hashedPassword,
             "is_admin" => $data["is_admin"],
-            "can_access" => $data["can_access"]
+            "can_access" => $data["can_access"],
+            "image_id" => $imageId ?? "1"
         ]);
     }
 

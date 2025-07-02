@@ -71,7 +71,7 @@ class User extends BaseController {
             return $permissions;
         }
 
-        $data = $this->request->getRawInputVar(["username", "is_admin", "can_access"]);
+        $data = $this->request->getRawInputVar(["username", "is_admin", "can_access"/*, "image" add handling */]);
         $i = 0;
 
         if (isset($data["username"])) {
@@ -93,6 +93,8 @@ class User extends BaseController {
 
             $i++;
         }
+
+        // Add updating Image handling
 
         if ($i === 0) {
             $this->response->setStatusCode(400);

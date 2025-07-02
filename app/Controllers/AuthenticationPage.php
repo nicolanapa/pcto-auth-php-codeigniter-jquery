@@ -101,7 +101,7 @@ class AuthenticationPage extends BaseController {
     }
 
     public function signup() {
-        $data = $this->request->getPost(["username", "password", "is_admin", "can_access"]);
+        $data = $this->request->getPost(["username", "password", "is_admin", "can_access"/*, "image" add handling */]);
 
         $data["is_admin"] = isset($data["is_admin"]) ?
             ($data["is_admin"] === "true" || $data["is_admin"] ?

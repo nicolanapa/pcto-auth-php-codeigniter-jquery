@@ -2,6 +2,7 @@
     <table class="user-table">
         <thead>
             <tr>
+                <th>Image of User</th>
                 <th>ID</th>
                 <th>Username</th>
                 <th>Is an Admin</th>
@@ -12,6 +13,14 @@
         <tbody>
             <?php for ($i = 0; $i < count($users); $i++) { ?>
                 <tr>
+                    <td>
+                        <div>
+                            <span>
+                                <img src="<?= base_url("./userImages/" . ($users[$i]["image_path"] ?? "./user.svg")) ?>" alt="User Image" width="32px" height="auto">
+                            </span>
+                            <?= view("partials/editX", ["userId" => $users[$i]["id"], "typeOfAction" => "image"]) ?>
+                        </div>
+                    </td>
                     <td>
                         <?= $users[$i]["id"] ?>
                     </td>

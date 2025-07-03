@@ -10,15 +10,28 @@ class User extends Model {
     protected $primaryKey = "id";
 
     public function getUsers() {
-        return $this->select(["id", "username", "is_admin", "can_access", "image_id"])->findAll();
+        $users = $this->select(["id", "username", "is_admin", "can_access", "image_id"])->findAll();
+
+        $imageModel = new Image();
+        for ($i = 0; $i < count($users); $i++) {
+            $users[$i]["image_path"] = $imageModel->getImage($users[$i]["image_id"]);
+        }
+
+        return $users;
     }
 
     public function getUser($id) {
-        return $this->select(["id", "username", "is_admin", "can_access", "image_id"])->find($id);
+        $user = $this->select(["id", "username", "is_admin", "can_access", "image_id"])->find($id);
+        $user["image_path"] = new Image()->getImage($user["image_id"]);
+
+        return $user;
     }
 
     public function getUserFromName($username) {
-        return $this->select(["id", "username", "is_admin", "can_access", "image_id"])->where("username", $username)->first();
+        $user = $this->select(["id", "username", "is_admin", "can_access", "image_id"])->where("username", $username)->first();
+        $user["image_path"] = new Image()->getImage($user["image_id"]);
+
+        return $user;
     }
 
     public function postUser($data): bool {
@@ -30,14 +43,12 @@ class User extends Model {
             return false;
         }
 
-        // Add image handling
-
         return $this->save([
             "username" => $data["username"],
             "hashed_password" => $hashedPassword,
             "is_admin" => $data["is_admin"],
             "can_access" => $data["can_access"],
-            "image_id" => $imageId ?? "1"
+            "image_id" => $data["image_id"] ?? "1"
         ]);
     }
 

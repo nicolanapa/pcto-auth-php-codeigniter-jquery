@@ -16,7 +16,9 @@
                     <td>
                         <div>
                             <span>
-                                <img src="<?= base_url("./userImages/" . ($users[$i]["image_path"] ?? "./user.svg")) ?>" alt="User Image" width="32px" height="auto">
+                                <a href="<?= base_url("./userImages/" . ($users[$i]["image_path"] ?? "./user.svg")) ?>">
+                                    <img src="<?= base_url("./userImages/" . ($users[$i]["image_path"] ?? "./user.svg")) ?>" alt="User Image" width="32px" height="auto">
+                                </a>
                             </span>
 
                             <?php if ($isAdmin) { ?>

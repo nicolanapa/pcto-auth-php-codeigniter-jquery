@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Libraries\UserSession;
 use App\Models\User;
+use App\Models\Image;
 
 class AuthenticationPage extends BaseController {
     protected $helpers = ["form"];
@@ -101,7 +102,7 @@ class AuthenticationPage extends BaseController {
     }
 
     public function signup() {
-        $data = $this->request->getPost(["username", "password", "is_admin", "can_access"/*, "image" add handling */]);
+        $data = $this->request->getPost(["username", "password", "is_admin", "can_access", "image"]);
 
         $data["is_admin"] = isset($data["is_admin"]) ?
             ($data["is_admin"] === "true" || $data["is_admin"] ?
@@ -124,7 +125,12 @@ class AuthenticationPage extends BaseController {
                     "errors" => ["is_bool" => "Can Access checkbox checked value must be 'true'"]
                 ],
                 "image" => [
-                    "rules" => "",
+                    "rules" => [
+                        "is_image[image]",
+                        "mime_in[image,image/jpg,image/jpeg,image/gif,image/png,image/webp,image/svg]",
+                        "max_size[image,10000]",
+                        "max_dims[image,3840,2160]",
+                    ],
                     "errors" => ["" => ""]
                 ]
             ]
@@ -137,10 +143,25 @@ class AuthenticationPage extends BaseController {
                 . view("partials/foot");
         }
 
+        $image = $this->request->getFile("image");
+        $imageId = 1;
+        if (!$image->hasMoved()) {
+            $imageName = $image->getRandomName();
+
+            $image->move("./userImages/", $imageName);
+
+            $imageModel = new Image();
+            $postedId = $imageModel->postImage("./$imageName");
+
+            if ($postedId !== 0) {
+                $imageId = $postedId;
+            }
+        }
+
         $model = model(User::class);
 
         $user = $this->validator->getValidated();
-
+        $user["image_id"] = $imageId;
         // Add Image to DB and get id of it
         // Add it to $user as "image_id"
 

@@ -2,7 +2,7 @@
 
     <?= validation_list_errors() ?>
 
-    <?= form_open("/signup") ?>
+    <?= form_open_multipart("/signup") ?>
     <label for="username">Username: </label>
     <input type="text" name="username" id="username" required minlength="4" maxlength="128">
 
@@ -15,7 +15,6 @@
     <label for="can-access">Would you want to access the Reserved Page? </label>
     <input type="checkbox" name="can_access" id="can-access" value="true">
 
-    <?php /* image form */ ?>
     <label for="image">Image</label>
     <input type="file" name="image" id="image" accept="image/*" />
 

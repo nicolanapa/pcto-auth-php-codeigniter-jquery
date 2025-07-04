@@ -4,24 +4,17 @@ namespace App\Controllers;
 
 use App\Libraries\UserSession;
 use App\Models\User;
+use App\Libraries\CheckPermissions;
 
 class ReservedPage extends BaseController {
     protected $helpers = ["url"];
     protected $user;
 
     public function normalUser() {
-        $sessionHandler = new UserSession();
+        if (!CheckPermissions::userType("normalUser")) {
+            $this->response->setStatusCode(403);
 
-        if (!$sessionHandler->checkIfExists()) {
             return redirect()->to("/");
-        }
-
-        $this->user = $sessionHandler->getSession();
-
-        if (isset($this->user) && isset($this->user["is_admin"]) && isset($this->user["can_access"])) {
-            if ($this->user["can_access"] !== "1") {
-                return redirect()->to("/");
-            }
         }
 
         $users = new User()->getUsers();
@@ -36,19 +29,9 @@ class ReservedPage extends BaseController {
     }
 
     public function adminUser() {
-        $sessionHandler = new UserSession();
+        if (!CheckPermissions::userType("adminUser")) {
+            $this->response->setStatusCode(403);
 
-        if (!$sessionHandler->checkIfExists()) {
-            return redirect()->to("/");
-        }
-
-        $this->user = $sessionHandler->getSession();
-
-        if (isset($this->user) && isset($this->user["is_admin"]) && isset($this->user["can_access"])) {
-            if ($this->user["is_admin"] !== "1" || $this->user["can_access"] !== "1") {
-                return redirect()->to("/");
-            }
-        } else {
             return redirect()->to("/");
         }
 

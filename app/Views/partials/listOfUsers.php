@@ -7,6 +7,7 @@
                 <th>Username</th>
                 <th>Is an Admin</th>
                 <th>Can Access the Reserved Page</th>
+                <th>Edit Shortcut</th>
             </tr>
         </thead>
 
@@ -61,6 +62,9 @@
                                 <?= view("partials/editX", ["userId" => $users[$i]["id"], "typeOfAction" => "can_access"]) ?>
                             <?php } ?>
                         </div>
+                    </td>
+                    <td>
+                        <a href="/editAll/<?= $users[$i]["id"] ?>">Edit All</a>
                     </td>
                 </tr>
             <?php } ?>

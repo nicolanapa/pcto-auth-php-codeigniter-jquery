@@ -6,6 +6,7 @@ use App\Controllers\Home;
 use App\Controllers\About;
 use App\Controllers\Contact;
 use App\Controllers\AuthenticationPage;
+use App\Controllers\EditAll;
 use App\Controllers\ReservedPage;
 use App\Controllers\User;
 
@@ -24,6 +25,9 @@ $routes->post("/logout", [AuthenticationPage::class, "logout"]);
 
 $routes->get("/reservedPage/normal", [ReservedPage::class, "normalUser"]);
 $routes->get("/reservedPage/admin", [ReservedPage::class, "adminUser"]);
+
+$routes->get("/editAll/(:num)", [EditAll::class, "view"]);
+$routes->post("/editAll/(:num)", [EditAll::class, "post"]);
 
 // REST API Routes
 $routes->get("/user", [User::class, "getAll"]);

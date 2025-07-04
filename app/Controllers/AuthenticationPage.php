@@ -97,7 +97,7 @@ class AuthenticationPage extends BaseController {
             "title" => "Signup Page",
             "stylesheets" => ["authenticationPage.css"]
         ])
-            . view("partials/signupForm")
+            . view("partials/signupForm", ["signupMode" => true])
             . view("partials/foot");
     }
 
@@ -139,7 +139,13 @@ class AuthenticationPage extends BaseController {
                 "title" => "Signup Page",
                 "stylesheets" => ["authenticationPage.css"]
             ])
-                . view("partials/signupForm", ["errors" => $this->validator->getErrors()])
+                . view(
+                    "partials/signupForm",
+                    [
+                        "errors" => $this->validator->getErrors(),
+                        "signupMode" => true
+                    ]
+                )
                 . view("partials/foot");
         }
 
@@ -174,9 +180,12 @@ class AuthenticationPage extends BaseController {
                     "title" => "Signup Page",
                     "stylesheets" => ["authenticationPage.css"]
                 ])
-                    . view("partials/signupForm", ["errors" => [
-                        "unknown_error" => "DB may have failed or some unknown Error has happened"
-                    ]])
+                    . view("partials/signupForm", [
+                        "errors" => [
+                            "unknown_error" => "DB may have failed or some unknown Error has happened"
+                        ],
+                        "signupMode" => true
+                    ])
                     . view("partials/foot");
             }
 
@@ -190,9 +199,12 @@ class AuthenticationPage extends BaseController {
                 "title" => "Signup Page",
                 "stylesheets" => ["authenticationPage.css"]
             ])
-                . view("partials/signupForm", ["errors" => [
-                    "username_password" => "Username might not exist or password is wrong"
-                ]])
+                . view("partials/signupForm", [
+                    "errors" => [
+                        "username_password" => "Username might not exist or password is wrong"
+                    ],
+                    "signupMode" => true
+                ])
                 . view("partials/foot");
         }
     }

@@ -38,7 +38,7 @@ class EditAll extends BaseController {
         $user = new User()->getUser($id);
 
         if (!isset($user)) {
-            redirect("/");
+            return redirect()->to("/");
         }
 
         return view("partials/head", [
@@ -50,6 +50,18 @@ class EditAll extends BaseController {
     }
 
     public function post($id) {
+        if (!CheckPermissions::userType("adminUser")) {
+            $this->response->setStatusCode(403);
+
+            return redirect()->to("/");
+        }
+
+        $user = new User()->getUser($id);
+
+        if (!isset($user)) {
+            return redirect()->to("/");
+        }
+
         $data = $this->request->getPost(["username", "password", "is_admin", "can_access", "image"]);
 
         $data["is_admin"] = isset($data["is_admin"]) ?

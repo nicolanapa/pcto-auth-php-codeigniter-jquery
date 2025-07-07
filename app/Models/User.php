@@ -68,4 +68,30 @@ class User extends Model {
             return false;
         }
     }
+
+    public function putUser($data): bool {
+        $fetchedUser = $this->getUser($data["id"]);
+        if (!isset($fetchedUser)) {
+            return false;
+        }
+
+        if ($this->where("username", $data["username"])->first() !== null) {
+            echo "Username already exists!";
+
+            return false;
+        }
+
+        $hashedPassword = password_hash($data["password"], PASSWORD_ARGON2ID);
+
+        return $this->update(
+            $data["id"],
+            [
+                "username" => $data["username"],
+                "hashed_password" => $hashedPassword,
+                "is_admin" => $data["is_admin"],
+                "can_access" => $data["can_access"],
+                "image_id" => $data["image_id"] ?? "1"
+            ]
+        );
+    }
 }
